@@ -1,20 +1,15 @@
-cmake_minimum_required(VERSION 3.4)
+project(banking_lib)
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+if (NOT TARGET libbanking)
+    add_library(libbanking STATIC
+        /Account.cpp
+        /Transaction.cpp
+    )
 
-option(BUILD_TEST "Build tests" OFF)
+    install(TARGETS libbanking
+        ARCHIVE DESTINATION lib
+        LIBRARY DESTINATION lib
+    )
+endif(NOT TARGET libbanking)
 
-project(banking)
-
-add_library(banking STATIC banking/Account.cpp banking/Transaction.cpp)
-target_include_directories(banking PUBLIC banking/)
-
-if(BUILD_TESTS)
-  enable_testing()
-  add_subdirectory(third-party/gtest)
-  file(GLOB BANKING_TEST_SOURCES tests/tests.cpp)
-  add_executable(check tests/tests.cpp)
-  target_link_libraries(check banking gtest_main gmock_main)
-  add_test(NAME check COMMAND check)
-endif()
+include_directories()
