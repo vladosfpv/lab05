@@ -31,3 +31,4 @@ if (COVERAGE)
 	target_compile_options(check PRIVATE --coverage)
 	target_link_libraries(check --coverage)
 endif()
+ 
